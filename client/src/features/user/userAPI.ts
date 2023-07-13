@@ -3,9 +3,12 @@ import axios from 'axios';
 import { User } from './userModel';
 
 export const getUserByCookie= createAsyncThunk(
+
 "get-user-by-cookie",
 async (_, thunkApi)=>{
+
 try{
+
 const {data}= await axios.get(`/api/v1/users/get-user-by-cookie`);
 
 if(!data)
@@ -22,7 +25,6 @@ catch (error: any) {
     });
   }
 }
-
 );
 
 
