@@ -1,0 +1,91 @@
+.container5{
+
+display: grid;
+grid-template-columns: 5% 95%;
+align-items: center;
+padding: 0 2rem;
+padding-bottom: 0.5rem;
+.btn-container{
+    display: flex;
+    align-items: center;
+    gap:2rem;
+    .emoji{
+        position: relative;
+        svg{
+            font-size: 1.5rem;
+            color: rgba(231, 208, 56, 0.822);
+            cursor: pointer;
+
+        }
+        .emoji-picker-react{
+            position: absolute;
+            bottom:3rem;
+            left:2rem;
+             background-color:  #c2d2c77d;
+             box-sizing: 0 5px 5px  #24de627d;
+             border-color: #0331127d;
+             .emoji-scroll-wrapper::-webkit-scrollbar{
+                width: 0.7rem;
+                &-thumb{
+                    background-color: #68d48c7d;
+                    border-radius: 1rem;
+                }
+             }
+            .emoji-categories{
+                button{
+                    filter: contrast(0);
+                }
+            }
+            .emoji-search{
+                background-color: transparent;
+                border-color: #20d45c7d;
+            }
+            .emoji-group:before{
+                background-color:  #68d48c7d;
+            }
+              }
+    }
+
+
+}
+.input-container{
+    width: 100%;
+  border-radius: 2rem;
+  display: flex;
+  align-content: center;
+  gap:2rem;
+  background-color: #68d48c7d ;
+  input{
+    width: 90%;
+    height: 60%;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding-left: 1rem;
+    font-size: 1rem;
+    &::selection{
+        background-color:  #68d48c7d;
+
+    }
+    &:focus{
+        outline: none;
+
+    }
+  }
+  .submit{
+    padding: 0.3rem  2rem;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:  #68d48c7d;
+    border: none;
+    svg{
+        font-size: 2rem;
+        color: white ;
+    }
+  }
+
+}
+ 
+}
