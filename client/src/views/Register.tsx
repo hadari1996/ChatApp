@@ -48,7 +48,8 @@ export const Register = () => {
           name,
           email,
         });
-
+        const { JWTCookie, status } = data;
+        sessionStorage.setItem("userID", JWTCookie);
         navigate("/MyAvatar");
       }
     } catch (error: any) {
@@ -116,7 +117,6 @@ export const Register = () => {
         </span>
       </form>
       <ToastContainer />
-
     </div>
   );
 };
