@@ -24,14 +24,17 @@ export async function register(req, res) {
       email,
       password: hash,
     });
+
     const cookie = { userId: user._id };
     const secret = process.env.SECRET;
     user.password = undefined;
+
     if (!secret) throw new Error("couldn't find secret from .env");
     const JWTCookie = jwt.encode(cookie, secret);
     if (user) {
-      res.cookie("userID", JWTCookie);
-      res.send({ status: true, user: user });
+      // res.cookie("userID", JWTCookie);
+      console.log("added");
+      res.send({ status: true, user: user, JWTCookie: JWTCookie });
     } else {
       res.send({ status: false });
     }
@@ -55,11 +58,13 @@ export async function login(req, res) {
     const cookie = { userId: userLogin._id }; // {userId: 5654sdvsv}
     const secret = process.env.SECRET;
     userLogin.password = undefined;
+
     if (!secret) throw new Error("couldn't find secret from .env");
     const JWTCookie = jwt.encode(cookie, secret);
+
     if (userLogin) {
-      res.cookie("userID", JWTCookie);
-      res.send({ status: true, userLogin: userLogin });
+      // res.cookie("userID", JWTCookie);
+      res.send({ status: true, userLogin: userLogin, JWTCookie: JWTCookie });
     } else {
       res.send({ status: false });
     }
@@ -92,8 +97,6 @@ export async function allFriends(req, res) {
     const friends = await UserModel.find({
       _id: { $ne: req.params.id },
     }).select(["email", "name", "avatarImage", "_id"]);
-    // console.log(typeof(friends));
-    // console.log(friends);
     res.send({ friends: friends });
   } catch (error) {
     res.status(500).send({ error: error.message, status: false });
@@ -102,11 +105,15 @@ export async function allFriends(req, res) {
 
 export async function getUserByCookie(req, res) {
   try {
-    const { userID } = req.cookies;
+    const userID = req.params.sesStor;
+    // const { userID } = req.cookies;
+    // if (!userID) throw new Error("no cookie found");
+
     if (!userID) throw new Error("no cookie found");
     const secret = process.env.SECRET;
     if (!secret) throw new Error("couldn't find secret from .env");
     const decodedUserID = jwt.decode(userID, secret);
+
     const { userId } = decodedUserID;
     if (!userId) throw new Error("couldn`t find user from cookies");
     const userDB = await UserModel.findById(userId);
@@ -120,7 +127,7 @@ export async function getUserByCookie(req, res) {
 
 export async function logout(req, res) {
   try {
-    res.clearCookie("userID");
+    // res.clearCookie("userID");
     res.send({ logout: true });
   } catch (error) {
     res.status(500).send({ error: error.message });
