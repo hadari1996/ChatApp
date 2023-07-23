@@ -33,7 +33,6 @@ export async function register(req, res) {
     const JWTCookie = jwt.encode(cookie, secret);
     if (user) {
       // res.cookie("userID", JWTCookie);
-      console.log("added");
       res.send({ status: true, user: user, JWTCookie: JWTCookie });
     } else {
       res.send({ status: false });
