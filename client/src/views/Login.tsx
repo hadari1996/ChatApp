@@ -42,8 +42,11 @@ export const Login = () => {
           name,
         });
 
-        const { status, userLogin } = data;
+        // const { status, userLogin } = data;
+        const { status, userLogin, JWTCookie } = data;
         if (status) {
+
+          sessionStorage.setItem("userID", JWTCookie);
           navigate("/MyAvatar");
         }
       }
