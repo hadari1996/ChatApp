@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { userSelector } from "../features/user/userSlice";
 import { getUserByCookie } from "../features/user/userAPI";
+import { SERVER_URL } from "../App";
 
 export const FormContainer: any = styled.div`width:100vw; height: 100vh; display: flex; justify-content: center; align-items-center`;
 
@@ -42,7 +43,7 @@ export const Register = () => {
       event.preventDefault();
       if (handleValidation()) {
         const { password, confirmPassword, name, email } = values;
-        const { data } = await axios.post(`/api/v1/users/register`, {
+        const { data } = await axios.post(`${SERVER_URL}/api/v1/users/register`, {
           password,
           confirmPassword,
           name,

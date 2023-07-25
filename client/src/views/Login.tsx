@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserByCookie } from "../features/user/userAPI";
+import { SERVER_URL } from "../App";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -30,14 +31,14 @@ export const Login = () => {
   useEffect(() => {
     dispatch(getUserByCookie());
   }, []);
-  if (user) navigate("/chat");
+  if (user) navigate("/Chat");
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
       if (handleValidation()) {
         const { password, name } = values;
-        const { data } = await axios.post(`/api/v1/users/login`, {
+        const { data } = await axios.post(`${SERVER_URL}/api/v1/users/login`, {
           password,
           name,
         });
@@ -45,7 +46,6 @@ export const Login = () => {
         // const { status, userLogin } = data;
         const { status, userLogin, JWTCookie } = data;
         if (status) {
-
           sessionStorage.setItem("userID", JWTCookie);
           navigate("/MyAvatar");
         }

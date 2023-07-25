@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom" ;
 import "./App.scss";
 import Register from "./views/Register";
 import { Login } from "./views/Login";
@@ -13,6 +13,7 @@ import { getUserByCookie } from "./features/user/userAPI";
 
 import { userSelector } from "./features/user/userSlice";
 import Page404 from "./views/Page404";
+export const SERVER_URL = `http://localhost:4000`;
 function App() {
 
   return (

@@ -11,9 +11,9 @@ import Login from "./Login";
 // import User from "../user";
 import { User } from "../features/user/userModel";
 import Friends from "../components/Friends";
-import Welcome from "../components/Welcome";
 import ChatContainer from "../components/ChatContainer";
 import { io } from "socket.io-client";
+import { SERVER_URL } from "../App";
 
 export const Chat = () => {
   // const {  } = process.env;
@@ -29,13 +29,6 @@ export const Chat = () => {
   const user = useAppSelector(userSelector);
 
   useEffect(() => {
-    dispatch(getUserByCookie);
-    if (user) {
-      getAllFriends(user);
-    }
-  }, []);
-
-  useEffect(() => {
     if (user) {
       socket.current = io("http://localhost:4000");
       socket.current.emit("add-user", user._id);
@@ -43,11 +36,11 @@ export const Chat = () => {
   }, [user]);
 
   useEffect(() => {
+    dispatch(getUserByCookie);
     if (user) {
       getAllFriends(user);
     }
-    
-  }, [user]);
+  }, []);
 
   const handleChangeChat = (chat: User) => {
     setCurrentChat(chat);
@@ -57,7 +50,7 @@ export const Chat = () => {
     if (await user) {
       if (user.isAvatarImageSet) {
         const { data } = await axios.get(
-          `/api/v1/users/allFriends/${user?._id}`
+          `${SERVER_URL}/api/v1/users/allFriends/${user?._id}`
         );
         setFriends(data.friends);
         setCurrentUser(user);

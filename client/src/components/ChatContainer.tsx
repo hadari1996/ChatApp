@@ -6,21 +6,19 @@ import "../ChatContainer.scss";
 import { Logout } from "./Logout";
 import ChatInputs from "./ChatInputs";
 import axios from "axios";
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { Socket } from "socket.io-client";
 import { Message } from "../message/messege";
-import { User } from './../features/user/userModel';
-
+import { User } from "./../features/user/userModel";
+import { SERVER_URL } from "../App";
 
 interface ChatContainerProps {
   currentChat: User | undefined;
-  currentUser: User | undefined,
-  socket:any,
+  currentUser: User | undefined;
+  socket: any;
 }
 
-
-
-const ChatContainer: FC<ChatContainerProps>  = ({
+const ChatContainer: FC<ChatContainerProps> = ({
   currentChat,
   currentUser,
   socket,
@@ -30,58 +28,60 @@ const ChatContainer: FC<ChatContainerProps>  = ({
   socket: any;
 }) => {
   const [messages, setMessages] = useState([]);
-  const [arrivalMessage, setArrivalMessage] = useState({})
-  const scrollRef =React.useRef<null | HTMLInputElement>(null);
+  const [arrivalMessage, setArrivalMessage] = useState({});
+  const scrollRef = React.useRef<null | HTMLInputElement>(null);
   const getAllMessages = async () => {
-    if(currentChat && currentUser != undefined){
-      const response = await axios.post(`/api/v1/messages/getAllMessage`, {
-        from: currentUser._id,
-        to: currentChat._id,
-   
-      });
-  
+    if (currentChat && currentUser != undefined) {
+      const response = await axios.post(
+        `${SERVER_URL}/api/v1/messages/getAllMessage`,
+        {
+          from: currentUser._id,
+          to: currentChat._id,
+        }
+      );
+
       setMessages(response.data);
     }
-
   };
-  const handleSendMsg = async (msg: any, createdDate:Date) => {
-    await axios.post(`/api/v1/messages/addMessage`, {
+  const handleSendMsg = async (msg: any, createdDate: Date) => {
+    await axios.post(`${SERVER_URL}/api/v1/messages/addMessage`, {
       from: currentUser!._id,
       to: currentChat!._id,
       message: msg,
-  
-      createdDate: createdDate
-        });
+
+      createdDate: createdDate,
+    });
 
     socket.current.emit("send-msg", {
       to: currentChat!._id,
       from: currentUser!._id,
       message: msg,
-      createdDate: createdDate
+      createdDate: createdDate,
     });
 
-    const msgs:any = [...messages];
-    msgs.push({ fromSelf: true, message: msg, createdDate:createdDate  });
+    const msgs: any = [...messages];
+    msgs.push({ fromSelf: true, message: msg, createdDate: createdDate });
     setMessages(msgs);
   };
 
   useEffect(() => {
     if (socket.current)
       socket.current.on("msg-recieve", (msg: any) => {
-
-        setArrivalMessage({ fromSelf:false, message: msg , createdDate:Date() });
+        setArrivalMessage({
+          fromSelf: false,
+          message: msg,
+          createdDate: Date(),
+        });
       });
   }, []);
 
   useEffect(() => {
-    arrivalMessage && setMessages((prev):any => [...prev, arrivalMessage]);
+    arrivalMessage && setMessages((prev): any => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({behavior:"smooth"})
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-
 
   useEffect(() => {
     getAllMessages();
@@ -105,19 +105,16 @@ const ChatContainer: FC<ChatContainerProps>  = ({
             {messages.map((message: any) => {
               return (
                 <div ref={scrollRef} key={uuidv4()}>
-                  
                   <div
                     className={`message ${
                       message.fromSelf ? "sended" : "recived"
                     }`}
                   >
-  
-                    
                     <div className="content">
-                    <div className="fromWho">
-                    {`  ${message.fromSelf ? "me" : "friend"}`}
-                    </div>
-                    <p>{message.createdDate}</p>
+                      <div className="fromWho">
+                        {`  ${message.fromSelf ? "me" : "friend"}`}
+                      </div>
+                      <p>{message.createdDate}</p>
                       <p>{message.message}</p>
                     </div>
                   </div>

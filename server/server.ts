@@ -4,16 +4,18 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import { createServer } from "http";
+
 dotenv.config();
 
 const app = express();
-const socket= require(`socket.io`);
+const socket = require(`socket.io`);
 
 const cors = require("cors");
 
 const PORT = process.env.PORT;
 const httpServer = createServer(app);
 const MONGO_URI = process.env.MONGO_URI;
+
 mongoose.set("strictQuery", true);
 app.use(express.json());
 app.use(cors());
@@ -31,22 +33,24 @@ mongoose
 
 import userRoutes from "./API/users/userRoutes";
 app.use("/api/v1/users", userRoutes);
+// app.use(`/users`, userRoutes);
 
 import messagesRoutes from "./API/messages/messagesRoutes";
+
 app.use("/api/v1/messages", messagesRoutes);
+// app.use("http://localhost:4000/messages", messagesRoutes);
 
-const server =app.listen(PORT, ()=>{
-    console.log(`Server is listening in PORT ${PORT}`)
-})
-
+const server = app.listen(PORT, () => {
+  console.log(`Server is listening in PORT ${PORT}`);
+});
 
 const io = socket(server, {
   cors: {
     origin: "http://localhost:3000",
-    Credential:true
+    Credential: true,
   },
 });
-global.onlineUsers= new Map();
+global.onlineUsers = new Map();
 io.on("connection", (socket) => {
   global.chatSocket = socket;
   socket.on("add-user", (userId: any) => {
@@ -54,11 +58,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send-msg", (data) => {
-    console.log("this is from server socket")
+    console.log("this is from server socket");
     const sendUserSocket = global.onlineUsers.get(data.to);
 
     if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("msg-recieve", data.message , data.createdDate);
+      socket
+        .to(sendUserSocket)
+        .emit("msg-recieve", data.message, data.createdDate);
     }
   });
 });

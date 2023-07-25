@@ -1,14 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User } from "./userModel";
+import { SERVER_URL } from "../../App";
 
 export const getUserByCookie = createAsyncThunk(
   "get-user-by-cookie",
   async (_, thunkApi) => {
     try {
       const { data } = await axios.get(
-        `/api/v1/users/get-user-by-cookie/${sessionStorage.getItem("userID")}`,
-        { withCredentials: true }
+        `${SERVER_URL}/api/v1/users/get-user-by-cookie/${sessionStorage.getItem(
+          "userID"
+        )}`
+        // { withCredentials: true }
       );
       // const {data}= await axios.get(`/api/v1/users/get-user-by-cookie`);
       if (!data)

@@ -9,12 +9,11 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { userSelector } from "../features/user/userSlice";
 import { getUserByCookie } from "./../features/user/userAPI";
 import Login from "./Login";
+import { SERVER_URL } from "../App";
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 />;
-
-
 
 export default function MyAvatar() {
   const dispatch = useAppDispatch();
@@ -23,7 +22,6 @@ export default function MyAvatar() {
   useEffect(() => {
     dispatch(getUserByCookie);
   }, []);
-
 
   const AvatarsApi = "https://api.dicebear.com/6.x/lorelei/png?seed=1  ";
 
@@ -55,15 +53,17 @@ export default function MyAvatar() {
     if (theAvatar === undefined) {
       toast.error("please select an avatar", toastOptions);
     } else {
-      const { data } = await axios.post(`/api/v1/users/MyAvatar/`, {
-        userId: user?._id,
-        img: avatarArray[theAvatar],
-      });
+      const { data } = await axios.post(
+        `${SERVER_URL}/api/v1/users/MyAvatar/`,
+        {
+          userId: user?._id,
+          img: avatarArray[theAvatar],
+        }
+      );
 
-       const {avatarIsSet}=data;
-      if (avatarIsSet===true) {
+      const { avatarIsSet } = data;
+      if (avatarIsSet === true) {
         navigate("/");
-      
       } else toast.error("Error is occured, please select an avatar again");
     }
   };
@@ -77,7 +77,7 @@ export default function MyAvatar() {
       }
 
       setLoading(false);
-    } catch (error:any) {
+    } catch (error: any) {
       console.error(error.message);
     }
   };
@@ -104,7 +104,9 @@ export default function MyAvatar() {
                       src={image}
                       alt=""
                       id={`${idx}`}
-                      onClick={(ev : React.MouseEvent<HTMLImageElement>|any) => {
+                      onClick={(
+                        ev: React.MouseEvent<HTMLImageElement> | any
+                      ) => {
                         setTheAvatar(ev.target.id);
                       }}
                     />
