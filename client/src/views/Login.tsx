@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/connect.png";
 import "../App.scss";
 import { toast, ToastContainer } from "react-toastify";
 import { userSelector } from "../features/user/userSlice";

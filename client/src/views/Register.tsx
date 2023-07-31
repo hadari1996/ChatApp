@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/connect.png";
 import "../App.scss";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
