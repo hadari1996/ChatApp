@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
 const express_1 = __importDefault(require("express"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const http_1 = require("http");
+const corsOptions_1 = require("./config/corsOptions");
 dotenv_1.default.config();
 exports.app = (0, express_1.default)();
 const socket = require(`socket.io`);
@@ -15,25 +17,23 @@ const cors = require("cors");
 exports.app.use(cors(corsOptions_1.CorsOptions));
 const PORT = process.env.PORT;
 const httpServer = (0, http_1.createServer)(exports.app);
-// const MONGO_URI = process.env.MONGO_URI;
-// mongoose.set("strictQuery", true);
+const MONGO_URI = process.env.MONGO_URI;
+mongoose_1.default.set("strictQuery", true);
 exports.app.use(express_1.default.json());
-exports.app.use(cors(corsOptions_1.CorsOptions));
 exports.app.use((0, cookie_parser_1.default)());
-// mongoose
-//   .connect(MONGO_URI)
-//   .then(() => {
-//     console.log("Connected to DB");
-//   })
-//   .catch((error) => {
-//     console.log("mongoose Error");
-//     console.log(error.message);
-//   });
+mongoose_1.default
+    .connect(MONGO_URI)
+    .then(() => {
+    console.log("Connected to DB");
+})
+    .catch((error) => {
+    console.log("mongoose Error");
+    console.log(error.message);
+});
 const userRoutes_1 = __importDefault(require("./API/users/userRoutes"));
 exports.app.use("/api/v1/users", userRoutes_1.default);
 // app.use(`/users`, userRoutes);
 const messagesRoutes_1 = __importDefault(require("./API/messages/messagesRoutes"));
-const corsOptions_1 = require("./config/corsOptions");
 exports.app.use("/api/v1/messages", messagesRoutes_1.default);
 // app.use("http://localhost:4000/messages", messagesRoutes);
 const server = exports.app.listen(PORT, () => {

@@ -1,0 +1,1 @@
+{"version":3,"file":"messagesRoutes.js","sourceRoot":"","sources":["../../../API/messages/messagesRoutes.ts"],"names":[],"mappings":";;;;;AAAA,sDAA8B;AAC9B,iDAA2D;AAI3D,MAAM,MAAM,GAAC,iBAAO,CAAC,MAAM,EAAE,CAAC;AAG9B,MAAM;KACL,IAAI,CAAC,aAAa,EAAE,yBAAU,CAAC;KAC/B,IAAI,CAAC,gBAAgB,EAAE,4BAAa,CAAC,CAAA;AAGtC,kBAAe,MAAM,CAAC"}
