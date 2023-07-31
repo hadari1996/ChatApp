@@ -12,6 +12,7 @@ dotenv_1.default.config();
 exports.app = (0, express_1.default)();
 const socket = require(`socket.io`);
 const cors = require("cors");
+exports.app.use(cors(corsOptions_1.CorsOptions));
 const PORT = process.env.PORT;
 const httpServer = (0, http_1.createServer)(exports.app);
 // const MONGO_URI = process.env.MONGO_URI;

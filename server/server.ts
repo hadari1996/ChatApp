@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import { Server } from "socket.io";
 import { createServer } from "http";
 
 dotenv.config();
@@ -11,6 +10,8 @@ export const app = express();
 const socket = require(`socket.io`);
 
 const cors = require("cors");
+
+app.use(cors(CorsOptions));
 
 const PORT = process.env.PORT;
 const httpServer = createServer(app);
