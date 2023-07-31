@@ -5,9 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-   "watch": "tsc -w",
-   "start": "node index.js",
-   "dev": "nodemon index.js"
+    "build":"tsc",
+    "start" :"node ./dist/server.js"
 
   },
   "author": "",
