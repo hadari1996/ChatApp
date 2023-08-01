@@ -1,4 +1,5 @@
-import UserModel, { UserValidation } from "./userModel";
+import UserModel from // , { UserValidation }
+"./userModel";
 import bcrypt from "bcrypt";
 import jwt from "jwt-simple";
 const saltRounds = 10;
@@ -11,12 +12,12 @@ export async function register(req, res) {
     if (emailCheck) {
       throw new Error("Email already used");
     }
-    const { error } = UserValidation.validate({
-      email,
-      password,
-      confirmPassword,
-    });
-    if (error) throw error;
+    // const { error } = UserValidation.validate({
+    //   email,
+    //   password,
+    //   confirmPassword,
+    // });
+    // if (error) throw error;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt);
     const user = await UserModel.create({
