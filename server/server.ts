@@ -4,13 +4,14 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { createServer } from "http";
 import { corsOptions } from "./config/corsOptions";
+import cors from "cors";
 
 dotenv.config();
 
 export const app = express();
 const socket = require(`socket.io`);
 
-const cors = require("cors");
+// const cors = require("cors");
 
 app.use(cors(corsOptions));
 
