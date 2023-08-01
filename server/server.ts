@@ -34,12 +34,9 @@ mongoose
 
 import userRoutes from "./API/users/userRoutes";
 app.use("/api/v1/users", userRoutes);
-// app.use(`/users`, userRoutes);
 
 import messagesRoutes from "./API/messages/messagesRoutes";
-
 app.use("/api/v1/messages", messagesRoutes);
-// app.use("http://localhost:4000/messages", messagesRoutes);
 
 const server = app.listen(PORT, () => {
   console.log(`Server is listening in PORT ${PORT}`);
