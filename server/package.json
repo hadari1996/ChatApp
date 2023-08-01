@@ -5,9 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"tsc",
-    "start" :"node ./dist/server.js"
-
+    "build": "tsc",
+    "start": "node ./dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +27,7 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
     "i": "^0.3.7",
-    "npm": "^9.8.1"
+    "npm": "^9.8.1",
+    "typescript": "^5.1.6"
   }
 }
