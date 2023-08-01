@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { createServer } from "http";
-import { CorsOptions } from "./config/corsOptions";
+import { corsOptions } from "./config/corsOptions";
 
 dotenv.config();
 
@@ -12,13 +12,13 @@ const socket = require(`socket.io`);
 
 const cors = require("cors");
 
-app.use(cors(CorsOptions));
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT;
 const httpServer = createServer(app);
 const MONGO_URI = process.env.MONGO_URI;
 
- mongoose.set("strictQuery", true);
+mongoose.set("strictQuery", true);
 app.use(express.json());
 app.use(cookieParser());
 
