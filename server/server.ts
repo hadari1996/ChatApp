@@ -13,8 +13,8 @@ const socket = require(`socket.io`);
 
 // const cors = require("cors");
 
-app.use(cors(corsOptions));
-
+// app.use(cors(corsOptions));
+app.use(cors({ origin: true }));
 const PORT = process.env.PORT;
 const httpServer = createServer(app);
 const MONGO_URI = process.env.MONGO_URI;
