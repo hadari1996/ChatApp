@@ -11,15 +11,16 @@ dotenv.config();
 export const app = express();
 const socket = require(`socket.io`);
 
+app.use(express.json());
+app.use(cookieParser());
 app.use(cors(corsOptions));
 // app.use(cors({ origin: true }));
+
 const PORT = process.env.PORT;
-const httpServer = createServer(app);
+// const httpServer = createServer(app);
 const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.set("strictQuery", true);
-app.use(express.json());
-app.use(cookieParser());
 
 mongoose
   .connect(MONGO_URI)
