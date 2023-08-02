@@ -11,9 +11,7 @@ dotenv.config();
 export const app = express();
 const socket = require(`socket.io`);
 
-// const cors = require("cors");
-
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(cors({ origin: true }));
 const PORT = process.env.PORT;
 const httpServer = createServer(app);
@@ -45,7 +43,8 @@ const server = app.listen(PORT, () => {
 
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
+    origin: corsOptions,
     Credential: true,
   },
 });
