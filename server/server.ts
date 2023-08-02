@@ -12,7 +12,7 @@ export const app = express();
 const socket = require(`socket.io`);
 
 app.use(cors(corsOptions));
-app.use(cors({ origin: true }));
+// app.use(cors({ origin: true }));
 const PORT = process.env.PORT;
 const httpServer = createServer(app);
 const MONGO_URI = process.env.MONGO_URI;
