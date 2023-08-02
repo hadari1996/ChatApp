@@ -9,8 +9,8 @@ export const getUserByCookie = createAsyncThunk(
       const { data } = await axios.get(
         `${SERVER_URL}/api/v1/users/get-user-by-cookie/${sessionStorage.getItem(
           "userID"
-        )}`
-        // { withCredentials: true }
+        )}`,
+        { withCredentials: true }
       );
       // const {data}= await axios.get(`/api/v1/users/get-user-by-cookie`);
       if (!data)
