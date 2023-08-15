@@ -8,17 +8,18 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const http_1 = require("http");
 const corsOptions_1 = require("./config/corsOptions");
-const cors_1 = __importDefault(require("cors"));
-dotenv_1.default.config();
-exports.app = express_1.default();
+exports.app = (0, express_1.default)();
 const socket = require(`socket.io`);
+const cors = require("cors");
+dotenv_1.default.config();
 exports.app.use(express_1.default.json());
-exports.app.use(cookie_parser_1.default());
-exports.app.use(cors_1.default(corsOptions_1.corsOptions));
+exports.app.use((0, cookie_parser_1.default)());
+exports.app.use(cors(corsOptions_1.corsOptions));
 // app.use(cors({ origin: true }));
 const PORT = process.env.PORT;
-// const httpServer = createServer(app);
+const httpServer = (0, http_1.createServer)(exports.app);
 const MONGO_URI = process.env.MONGO_URI;
 mongoose_1.default.set("strictQuery", true);
 mongoose_1.default
@@ -39,7 +40,6 @@ const server = exports.app.listen(PORT, () => {
 });
 const io = socket(server, {
     cors: {
-        // origin: "http://localhost:3000",
         origin: corsOptions_1.corsOptions,
         Credential: true,
     },
@@ -60,3 +60,4 @@ io.on("connection", (socket) => {
         }
     });
 });
+//# sourceMappingURL=server.js.map

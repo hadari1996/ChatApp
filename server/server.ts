@@ -4,20 +4,18 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { createServer } from "http";
 import { corsOptions } from "./config/corsOptions";
-import cors from "cors";
-
-dotenv.config();
 
 export const app = express();
 const socket = require(`socket.io`);
+const cors = require("cors");
+dotenv.config();
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 // app.use(cors({ origin: true }));
-
 const PORT = process.env.PORT;
-// const httpServer = createServer(app);
+const httpServer = createServer(app);
 const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.set("strictQuery", true);
@@ -44,11 +42,11 @@ const server = app.listen(PORT, () => {
 
 const io = socket(server, {
   cors: {
-    // origin: "http://localhost:3000",
     origin: corsOptions,
     Credential: true,
   },
 });
+
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
   global.chatSocket = socket;

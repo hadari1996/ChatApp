@@ -48,9 +48,11 @@ const ChatContainer: FC<ChatContainerProps> = ({
       from: currentUser!._id,
       to: currentChat!._id,
       message: msg,
-
       createdDate: createdDate,
     });
+
+    
+
 
     socket.current.emit("send-msg", {
       to: currentChat!._id,

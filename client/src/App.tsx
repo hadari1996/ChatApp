@@ -9,10 +9,9 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getUserByCookie } from "./features/user/userAPI";
-// import Friends from './components/Friends';
-
 import { userSelector } from "./features/user/userSlice";
 import Page404 from "./views/Page404";
+
 let NODE_ENV = "PROD";
 export let SERVER_URL=""
 if (NODE_ENV === "PROD") {
@@ -20,7 +19,6 @@ if (NODE_ENV === "PROD") {
 } else {
   SERVER_URL = "http://localhost:4000";
 }
-// export const SERVER_URL = `https://chatapp-server-iq5u.onrender.com`;
 function App() {
   return (
     <>
