@@ -44,23 +44,21 @@ const ChatContainer: FC<ChatContainerProps> = ({
     }
   };
   const handleSendMsg = async (msg: any, createdDate: Date) => {
-    await axios.post(`${SERVER_URL}/api/v1/messages/addMessage`, {
+    const msg1 = await axios.post(`${SERVER_URL}/api/v1/messages/addMessage`, {
       from: currentUser!._id,
       to: currentChat!._id,
       message: msg,
       createdDate: createdDate,
     });
 
-    
-
-
+    if (msg1.data.msg1) console.log("test");
     socket.current.emit("send-msg", {
       to: currentChat!._id,
       from: currentUser!._id,
       message: msg,
       createdDate: createdDate,
     });
-
+    console.log(msg1);
     const msgs: any = [...messages];
     msgs.push({ fromSelf: true, message: msg, createdDate: createdDate });
     setMessages(msgs);

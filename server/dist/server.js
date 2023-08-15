@@ -40,7 +40,7 @@ const server = exports.app.listen(PORT, () => {
 });
 const io = socket(server, {
     cors: {
-        origin: corsOptions_1.corsOptions,
+        origin: "http://localhost:3000",
         Credential: true,
     },
 });
