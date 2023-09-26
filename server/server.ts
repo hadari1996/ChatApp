@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import { createServer } from "http";
+import { corsOptions } from "./config/corsOptions";
 dotenv.config();
 
 const app = express();
@@ -34,7 +35,7 @@ import userRoutes from "./API/users/userRoutes";
 app.use("/api/v1/users", userRoutes);
 
 import messagesRoutes from "./API/messages/messagesRoutes";
-import { corsOptions } from "./config/corsOptions";
+
 app.use("/api/v1/messages", messagesRoutes);
 
 const server = app.listen(PORT, () => {
