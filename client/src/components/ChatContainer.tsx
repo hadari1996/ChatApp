@@ -51,14 +51,13 @@ const ChatContainer: FC<ChatContainerProps> = ({
       createdDate: createdDate,
     });
 
-    if (msg1.data.msg1) console.log("test");
     socket.current.emit("send-msg", {
       to: currentChat!._id,
       from: currentUser!._id,
       message: msg,
       createdDate: createdDate,
     });
-    console.log(msg1);
+
     const msgs: any = [...messages];
     msgs.push({ fromSelf: true, message: msg, createdDate: createdDate });
     setMessages(msgs);
