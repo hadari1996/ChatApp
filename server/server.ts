@@ -41,10 +41,10 @@ const server = app.listen(PORT, () => {
 });
 
 const io = socket(server, {
-  // cors: {
-  //   origin: corsOptions,
-  //   Credential: true,
-  // },
+  cors: {
+    origin: corsOptions,
+    Credential: true,
+  },
 });
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
