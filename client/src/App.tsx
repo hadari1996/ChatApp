@@ -12,8 +12,8 @@ import { getUserByCookie } from "./features/user/userAPI";
 import { userSelector } from "./features/user/userSlice";
 import Page404 from "./views/Page404";
 
-let NODE_ENV = "";
-export let SERVER_URL=""
+let NODE_ENV = "PROD";
+export let SERVER_URL = "";
 if (NODE_ENV === "PROD") {
   SERVER_URL = `https://chatapp-server-iq5u.onrender.com`;
 } else {
