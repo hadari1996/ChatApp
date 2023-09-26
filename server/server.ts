@@ -19,8 +19,6 @@ const MONGO_URI = process.env.MONGO_URI;
 mongoose.set("strictQuery", true);
 app.use(express.json());
 
-
-
 mongoose
   .connect(MONGO_URI)
   .then(() => {
@@ -47,7 +45,9 @@ const io = socket(server, {
     // origin: corsOptions,
     origin: "*",
 
-    Credential: true,
+    // Credential: true,
+
+    Credential: false,
   },
 });
 global.onlineUsers = new Map();
