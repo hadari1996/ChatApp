@@ -10,6 +10,7 @@ const app = express();
 const socket = require(`socket.io`);
 
 const cors = require("cors");
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT;
 const httpServer = createServer(app);
@@ -17,7 +18,6 @@ const MONGO_URI = process.env.MONGO_URI;
 mongoose.set("strictQuery", true);
 app.use(express.json());
 
-app.use(cors(corsOptions));
 
 
 mongoose
